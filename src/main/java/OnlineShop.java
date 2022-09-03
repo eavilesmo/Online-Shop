@@ -9,8 +9,8 @@ public class OnlineShop {
             System.out.println(product.getImage());
             System.out.println(product.getShortDescription());
             System.out.println(product.getHighlightedAttribute());
-            System.out.println(product.getPrice());
-            System.out.println(product.getReference());
+            System.out.printf("\uD83D\uDCB0 Price: %s €\n", product.getPrice());
+            System.out.printf("Reference: %s\n" ,product.getReference());
             System.out.println();
         }
     }
