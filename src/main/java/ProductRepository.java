@@ -1,13 +1,41 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ProductRepository {
     ArrayList<Product> listOfProducts = new ArrayList<>();
 
-    Product television = new Product("\uD83D\uDCFA", "Glamorous panoramic television, 13 inches", "With this panoramic television, your friday nights will be boring no more.", 300.99, "W2C");
-    Product piano = new Product("\uD83C\uDFB9", "Untuned musical keyboard, 4 octaves", "Tired of your noisy neighbourgh? Play this untuned musical keyboard for two hours at home and your neighbour will be ready to move to a building far away from you. ", 1003.00, "X4A");
-
     public void addProducts() {
-        listOfProducts.add(television);
-        listOfProducts.add(piano);
+        ArrayList<Product> productsToBeAdded = createProducts();
+        listOfProducts.addAll(productsToBeAdded);
+    }
+
+    private ArrayList<Product> createProducts() {
+        String televisionImage = "\uD83D\uDCFA";
+        String televisionShortDescription = "Glamorous panoramic television, 13 inches";
+        String televisionHighlightedAttribute = "With this panoramic television, your friday nights will be boring no more.";
+        double televisionPrice = 300.99;
+        String televisionReference = "W2C";
+        Product television = new Product(televisionImage, televisionShortDescription, televisionHighlightedAttribute, televisionPrice, televisionReference);
+
+        String pianoImage = "\uD83C\uDFB9";
+        String pianoShortDescription = "Untuned musical keyboard, 4 octaves";
+        String pianoHighlightedAttribute = "Tired of your noisy neighbourgh? Play this untuned musical keyboard for two hours at home and your neighbour will be ready to move to a building far away from you.";
+        double pianoPrice = 1003.00;
+        String pianoReference = "X4A";
+        Product piano = new Product(pianoImage, pianoShortDescription, pianoHighlightedAttribute, pianoPrice, pianoReference);
+
+        String candleImage = "\uD83D\uDD6F";
+        String candleShortDescription = "Relaxing scented candle";
+        String candleHighlightedAttribute = "If you feel stressed out at the end of the day, try giving yourself a break with our relaxing scented candle! With a subtle lavander fragance, get rid of all the stress. Some customers affirm that this candle helps them to solve bugs in their code.";
+        double candlePrice = 4.99;
+        String candleReference = "C9Y";
+        Product scentedCandle = new Product(candleImage, candleShortDescription, candleHighlightedAttribute, candlePrice, candleReference);
+
+        ArrayList<Product> productsToBeAdded = new ArrayList<>();
+        productsToBeAdded.add(television);
+        productsToBeAdded.add(piano);
+        productsToBeAdded.add(scentedCandle);
+
+        return productsToBeAdded;
     }
 }
