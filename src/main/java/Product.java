@@ -12,4 +12,24 @@ public class Product {
         this.price = price;
         this.reference = reference;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public String getHighlightedAttribute() {
+        return highlightedAttribute;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getReference() {
+        return reference;
+    }
 }
