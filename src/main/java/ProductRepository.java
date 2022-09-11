@@ -9,6 +9,10 @@ public class ProductRepository {
     listOfProducts.addAll(productsToBeAdded);
   }
 
+  public ArrayList<Product> getProducts() {
+    return listOfProducts;
+  }
+
   private ArrayList<Product> createProducts() {
     String televisionImage = "\uD83D\uDCFA";
     String televisionShortDescription = "Glamorous panoramic television, 13 inches";
