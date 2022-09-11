@@ -5,8 +5,7 @@ public class OnlineShop {
   ProductRepository productRepository = new ProductRepository();
 
   public void showProducts() {
-    productRepository.addProducts();
-    ArrayList<Product> listOfProducts = productRepository.getProducts();
+    ArrayList<Product> listOfProducts = addProducts();
     for (Product product : listOfProducts) {
       System.out.println(product.getImage());
       System.out.println(product.getShortDescription());
@@ -14,7 +13,11 @@ public class OnlineShop {
       System.out.printf("\uD83D\uDCB0 Price: %s €\n", product.getPrice());
       System.out.printf("Reference: %s\n", product.getReference());
       System.out.println();
-
     }
+  }
+
+  private ArrayList<Product> addProducts() {
+    productRepository.addProducts();
+    return productRepository.getProducts();
   }
 }
