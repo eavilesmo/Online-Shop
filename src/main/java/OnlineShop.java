@@ -4,9 +4,13 @@ public class OnlineShop {
 
   ProductRepository productRepository = new ProductRepository();
   Formatter formatter = new Formatter();
+  ArrayList<Product> listOfProducts;
+
+  public OnlineShop() {
+    listOfProducts = addProducts();
+  }
 
   public void showProducts() {
-    ArrayList<Product> listOfProducts = addProducts();
     String finalProducts = formatter.formatProducts(listOfProducts);
     System.out.println(finalProducts);
   }
