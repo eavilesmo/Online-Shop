@@ -2,12 +2,7 @@ import java.util.ArrayList;
 
 public class ProductRepository {
 
-  private ArrayList<Product> listOfProducts = new ArrayList<>();
-
-  public void addProducts() {
-    ArrayList<Product> productsToBeAdded = createProducts();
-    listOfProducts.addAll(productsToBeAdded);
-  }
+  private final ArrayList<Product> listOfProducts = createProducts();
 
   public ArrayList<Product> getProducts() {
     return listOfProducts;

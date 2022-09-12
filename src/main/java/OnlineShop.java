@@ -1,22 +1,10 @@
-import java.util.ArrayList;
-
 public class OnlineShop {
 
-  ProductRepository productRepository = new ProductRepository();
-  Formatter formatter = new Formatter();
-  ArrayList<Product> listOfProducts;
-
-  public OnlineShop() {
-    listOfProducts = addProducts();
-  }
+  private final ProductRepository productRepository = new ProductRepository();
+  private final Formatter formatter = new Formatter();
 
   public void showProducts() {
-    String finalProducts = formatter.formatProducts(listOfProducts);
+    String finalProducts = formatter.formatProducts(productRepository.getProducts());
     System.out.println(finalProducts);
-  }
-
-  private ArrayList<Product> addProducts() {
-    productRepository.addProducts();
-    return productRepository.getProducts();
   }
 }
