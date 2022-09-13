@@ -38,4 +38,13 @@ public class ProductRepository {
 
     return productsToBeAdded;
   }
+
+  public boolean findProductByReference(String reference) {
+    for (Product product : listOfProducts) {
+      if (product.getReference().equals(reference)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

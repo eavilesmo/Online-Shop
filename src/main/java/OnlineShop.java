@@ -13,9 +13,9 @@ public class OnlineShop {
 
   private void exploreProducts() {
     System.out.println("Which product would you like to explore? - Introduce a product's reference.");
-    String userInput = "";
     Scanner userInputScanner = new Scanner(System.in);
-    userInput = userInputScanner.nextLine();
-    System.out.println(userInput);
+    String userInput = userInputScanner.nextLine();
+    boolean doesProductExist = productRepository.findProductByReference(userInput);
+    System.out.println(doesProductExist);
   }
 }
