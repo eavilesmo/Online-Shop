@@ -25,4 +25,34 @@ public class Formatter {
     }
     return finalProducts.toString();
   }
+
+  public String formatSingleProduct(Product product) {
+    StringBuilder singleProduct = new StringBuilder();
+    singleProduct.append(product.getImage());
+    singleProduct.append("\n");
+
+    String formatForPrice = "\uD83D\uDCB0 Price: %s €\n";
+    String price = String.format(formatForPrice, product.getPrice());
+    singleProduct.append(price);
+
+    String formatForReference = "Reference: %s \n";
+    String reference = String.format(formatForReference, product.getReference());
+    singleProduct.append(reference);
+
+    String formatForStock = "%s left.\n";
+    String stock = String.format(formatForStock, product.getStock());
+    singleProduct.append(stock);
+    singleProduct.append("\n");
+
+    singleProduct.append("SUMMARY:\n");
+    singleProduct.append(product.getShortDescription());
+    singleProduct.append(product.getHighlightedAttribute());
+    singleProduct.append("\n\n");
+
+    singleProduct.append("DESCRIPTION:\n");
+    singleProduct.append(product.getLongDescription());
+    singleProduct.append("\n\n");
+
+    return singleProduct.toString();
+  }
 }
