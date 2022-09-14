@@ -24,7 +24,7 @@ public class OnlineShop {
       }
     }
     Product singleProductToBeFormatted = productRepository.getSingleProduct(userInput);
-    String singleProduct = formatter.formatSingleProduct(singleProductToBeFormatted);
+    String singleProduct = formatter.formatProductDetails(singleProductToBeFormatted);
     System.out.println(singleProduct);
 
     System.out.println("What would you like to do next?");

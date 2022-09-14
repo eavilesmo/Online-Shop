@@ -26,7 +26,7 @@ public class Formatter {
     return finalProducts.toString();
   }
 
-  public String formatSingleProduct(Product product) {
+  public String formatProductDetails(Product product) {
     StringBuilder singleProduct = new StringBuilder();
     singleProduct.append(product.getImage());
     singleProduct.append("\n");
