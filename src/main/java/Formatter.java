@@ -46,6 +46,7 @@ public class Formatter {
 
     singleProduct.append("SUMMARY:\n");
     singleProduct.append(product.getShortDescription());
+    singleProduct.append("\n");
     singleProduct.append(product.getHighlightedAttribute());
     singleProduct.append("\n\n");
 
