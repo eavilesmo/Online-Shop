@@ -47,4 +47,13 @@ public class ProductRepository {
     }
     return false;
   }
+
+  public Product getSingleProduct(String reference) {
+    for (Product product : listOfProducts) {
+      if (product.getReference().equals(reference)) {
+        return product;
+      }
+    }
+    throw new RuntimeException("The product does not exist in the database");
+  }
 }
