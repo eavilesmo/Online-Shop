@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductRepository {
 
@@ -64,5 +66,13 @@ public class ProductRepository {
       }
     }
     throw new RuntimeException("The product does not exist in the database");
+  }
+
+  public List<Product> filterProductsByPrice(double price) {
+    ArrayList<Product> newListOfProducts = (ArrayList<Product>) listOfProducts
+      .stream()
+      .filter(x -> x.getPrice() < (price))
+      .collect(Collectors.toList());
+    return newListOfProducts;
   }
 }
