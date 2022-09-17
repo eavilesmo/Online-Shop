@@ -15,15 +15,15 @@ public class OnlineShop {
     System.out.println("Which product would you like to explore? - Introduce a product's reference.");
     Scanner userInputScanner = new Scanner(System.in);
     boolean doesProductExist = false;
-    String userInput = "";
+    String reference = "";
     while (!doesProductExist) {
-      userInput = userInputScanner.nextLine();
-      doesProductExist = productRepository.findProductByReference(userInput);
+      reference = userInputScanner.nextLine();
+      doesProductExist = productRepository.doesProductExist(reference);
       if (!doesProductExist) {
         System.out.println("Sorry, the reference does not match any product. Please try again");
       }
     }
-    Product singleProductToBeFormatted = productRepository.getSingleProduct(userInput);
+    Product singleProductToBeFormatted = productRepository.findProductByReference(reference);
     String singleProduct = formatter.formatProductDetails(singleProductToBeFormatted);
     System.out.println(singleProduct);
 
