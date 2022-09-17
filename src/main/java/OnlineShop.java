@@ -5,7 +5,7 @@ public class OnlineShop {
   private final ProductRepository productRepository = new ProductRepository();
   private final Formatter formatter = new Formatter();
 
-  public void showProducts() {
+  public void showCatalog() {
     String finalProducts = formatter.formatProducts(productRepository.getProducts());
     System.out.println(finalProducts);
     exploreProducts();
@@ -33,7 +33,7 @@ public class OnlineShop {
 
     String shopperAction = userInputScanner.nextLine();
     if (shopperWantsToKeepBrowsingTheCatalog(shopperAction)) {
-      showProducts();
+      showCatalog();
     }
   }
 
