@@ -31,9 +31,13 @@ public class OnlineShop {
     System.out.println("1. Add product to cart.");
     System.out.println("2. Keep browsing the catalog");
 
-    String userInput2 = userInputScanner.nextLine();
-    if (userInput2.equals("2")) {
+    String shopperAction = userInputScanner.nextLine();
+    if (shopperWantsToKeepBrowsingTheCatalog(shopperAction)) {
       showProducts();
     }
+  }
+
+  private static boolean shopperWantsToKeepBrowsingTheCatalog(String shopperAction) {
+    return shopperAction.equals("2");
   }
 }

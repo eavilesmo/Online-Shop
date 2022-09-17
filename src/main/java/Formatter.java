@@ -41,8 +41,7 @@ public class Formatter {
 
     String formatForStock = "%s left.\n";
     String stock = String.format(formatForStock, product.getStock());
-    singleProduct.append(stock);
-    singleProduct.append("\n");
+    singleProduct.append(stock).append("\n");
 
     singleProduct.append("SUMMARY:\n");
     singleProduct.append(product.getShortDescription());
