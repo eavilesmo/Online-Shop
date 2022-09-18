@@ -2,34 +2,35 @@ import java.util.Scanner;
 
 public class OnlineShop {
 
-  private final ProductRepository productRepository = new ProductRepository();
+  private final ProductWarehouse productWarehouse = new ProductWarehouse();
   private final Formatter formatter = new Formatter();
 
+
   public void showCatalog() {
-    String finalProducts = formatter.formatProducts(productRepository.getProducts());
+    String finalProducts = formatter.formatProducts(productWarehouse.getProducts());
     System.out.println(finalProducts);
     exploreProducts();
   }
 
   private void exploreProducts() {
-    System.out.println("Which product would you like to explore? - Introduce a product's reference.");
+    System.out.println(StringRepository.EXPLORE_PRODUCTS);
     Scanner userInputScanner = new Scanner(System.in);
     boolean doesProductExist = false;
     String reference = "";
     while (!doesProductExist) {
       reference = userInputScanner.nextLine();
-      doesProductExist = productRepository.doesProductExist(reference);
+      doesProductExist = productWarehouse.doesProductExist(reference);
       if (!doesProductExist) {
-        System.out.println("Sorry, the reference does not match any product. Please try again");
+        System.out.println(StringRepository.INCORRECT_REFERENCE);
       }
     }
-    Product singleProductToBeFormatted = productRepository.findProductByReference(reference);
+    Product singleProductToBeFormatted = productWarehouse.findProductByReference(reference);
     String singleProduct = formatter.formatProductDetails(singleProductToBeFormatted);
     System.out.println(singleProduct);
 
-    System.out.println("What would you like to do next?");
-    System.out.println("1. Add product to cart.");
-    System.out.println("2. Keep browsing the catalog");
+    System.out.println(StringRepository.NEXT_ACTION_QUESTION);
+    System.out.println(StringRepository.ADD_PRODUCT_TO_CART);
+    System.out.println(StringRepository.KEEP_BROWSING_PRODUCTS);
 
     String shopperAction = userInputScanner.nextLine();
     if (shopperWantsToKeepBrowsingTheCatalog(shopperAction)) {

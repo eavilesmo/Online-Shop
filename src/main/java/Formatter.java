@@ -6,22 +6,22 @@ public class Formatter {
     StringBuilder finalProducts = new StringBuilder();
     for (Product product : listOfProducts) {
       finalProducts.append(product.getImage());
-      finalProducts.append("\n");
+      finalProducts.append(StringRepository.LINE_BREAK);
 
       finalProducts.append(product.getShortDescription());
-      finalProducts.append("\n");
+      finalProducts.append(StringRepository.LINE_BREAK);
 
       finalProducts.append(product.getHighlightedAttribute());
-      finalProducts.append("\n");
+      finalProducts.append(StringRepository.LINE_BREAK);
 
-      String formatForPrice = "\uD83D\uDCB0 Price: %s €\n";
+      String formatForPrice = StringRepository.FORMAT_FOR_PRICE;
       String price = String.format(formatForPrice, product.getPrice());
       finalProducts.append(price);
 
-      String formatForReference = "Reference: %s \n";
+      String formatForReference = StringRepository.FORMAT_FOR_REFERENCE;
       String reference = String.format(formatForReference, product.getReference());
       finalProducts.append(reference);
-      finalProducts.append("\n");
+      finalProducts.append(StringRepository.LINE_BREAK);
     }
     return finalProducts.toString();
   }
@@ -29,29 +29,29 @@ public class Formatter {
   public String formatProductDetails(Product product) {
     StringBuilder singleProduct = new StringBuilder();
     singleProduct.append(product.getImage());
-    singleProduct.append("\n");
+    singleProduct.append(StringRepository.LINE_BREAK);
 
-    String formatForPrice = "\uD83D\uDCB0 Price: %s €\n";
+    String formatForPrice = StringRepository.FORMAT_FOR_PRICE;
     String price = String.format(formatForPrice, product.getPrice());
     singleProduct.append(price);
 
-    String formatForReference = "Reference: %s \n";
+    String formatForReference = StringRepository.FORMAT_FOR_REFERENCE;
     String reference = String.format(formatForReference, product.getReference());
     singleProduct.append(reference);
 
-    String formatForStock = "%s left.\n";
+    String formatForStock = StringRepository.FORMAT_FOR_STOCK;
     String stock = String.format(formatForStock, product.getStock());
-    singleProduct.append(stock).append("\n");
+    singleProduct.append(stock).append(StringRepository.LINE_BREAK);
 
-    singleProduct.append("SUMMARY:\n");
+    singleProduct.append(StringRepository.SUMMARY_TITLE);
     singleProduct.append(product.getShortDescription());
-    singleProduct.append("\n");
+    singleProduct.append(StringRepository.LINE_BREAK);
     singleProduct.append(product.getHighlightedAttribute());
-    singleProduct.append("\n\n");
+    singleProduct.append(StringRepository.DOUBLE_LINE_BREAK);
 
-    singleProduct.append("DESCRIPTION:\n");
+    singleProduct.append(StringRepository.DESCRIPTION_TITLE);
     singleProduct.append(product.getLongDescription());
-    singleProduct.append("\n\n");
+    singleProduct.append(StringRepository.DOUBLE_LINE_BREAK);
 
     return singleProduct.toString();
   }
