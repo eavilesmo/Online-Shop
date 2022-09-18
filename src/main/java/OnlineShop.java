@@ -10,15 +10,16 @@ public class OnlineShop {
     String finalProducts = formatter.formatProducts(productWarehouse.getProducts());
     System.out.println(finalProducts);
     exploreProducts();
+    executeNextActions();
   }
 
   private void exploreProducts() {
     System.out.println(StringRepository.EXPLORE_PRODUCTS);
-    Scanner userInputScanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
     boolean doesProductExist = false;
     String reference = "";
     while (!doesProductExist) {
-      reference = userInputScanner.nextLine();
+      reference = scanner.nextLine();
       doesProductExist = productWarehouse.doesProductExist(reference);
       if (!doesProductExist) {
         System.out.println(StringRepository.INCORRECT_REFERENCE);
@@ -27,18 +28,24 @@ public class OnlineShop {
     Product singleProductToBeFormatted = productWarehouse.findProductByReference(reference);
     String singleProduct = formatter.formatProductDetails(singleProductToBeFormatted);
     System.out.println(singleProduct);
+  }
 
-    System.out.println(StringRepository.NEXT_ACTION_QUESTION);
-    System.out.println(StringRepository.ADD_PRODUCT_TO_CART);
-    System.out.println(StringRepository.KEEP_BROWSING_PRODUCTS);
-
-    String shopperAction = userInputScanner.nextLine();
+  private void executeNextActions() {
+    printNextActions();
+    Scanner scanner = new Scanner(System.in);
+    String shopperAction = scanner.nextLine();
     if (shopperWantsToKeepBrowsingTheCatalog(shopperAction)) {
       showCatalog();
     }
   }
 
-  private static boolean shopperWantsToKeepBrowsingTheCatalog(String shopperAction) {
+  private void printNextActions() {
+    System.out.println(StringRepository.NEXT_ACTION_QUESTION);
+    System.out.println(StringRepository.ADD_PRODUCT_TO_CART);
+    System.out.println(StringRepository.KEEP_BROWSING_PRODUCTS);
+  }
+
+  private boolean shopperWantsToKeepBrowsingTheCatalog(String shopperAction) {
     return shopperAction.equals(StringRepository.SECOND_OPTION);
   }
 }
