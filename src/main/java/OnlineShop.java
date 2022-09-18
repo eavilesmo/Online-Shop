@@ -9,11 +9,11 @@ public class OnlineShop {
   public void showCatalog() {
     String finalProducts = formatter.formatProducts(productWarehouse.getProducts());
     System.out.println(finalProducts);
-    exploreProducts();
+    browseProductsByReference();
     executeNextActions();
   }
 
-  private void exploreProducts() {
+  private void browseProductsByReference() {
     System.out.println(StringRepository.EXPLORE_PRODUCTS);
     Scanner scanner = new Scanner(System.in);
     boolean doesProductExist = false;
