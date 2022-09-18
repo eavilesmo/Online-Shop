@@ -39,6 +39,6 @@ public class OnlineShop {
   }
 
   private static boolean shopperWantsToKeepBrowsingTheCatalog(String shopperAction) {
-    return shopperAction.equals("2");
+    return shopperAction.equals(StringRepository.SECOND_OPTION);
   }
 }
