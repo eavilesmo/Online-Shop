@@ -56,6 +56,6 @@ public class ProductWarehouse {
         return product;
       }
     }
-    throw new RuntimeException("The product does not exist in the database");
+    throw new RuntimeException(StringRepository.PRODUCT_DOES_NOT_EXIST);
   }
 }
