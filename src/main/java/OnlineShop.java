@@ -1,17 +1,12 @@
-import java.util.ArrayList;
-
 public class OnlineShop {
-    ProductRepository productRepository = new ProductRepository();
 
-    public void showProducts() {
-        productRepository.addProducts();
-        for (Product product : productRepository.listOfProducts) {
-            System.out.println(product.getImage());
-            System.out.println(product.getShortDescription());
-            System.out.println(product.getHighlightedAttribute());
-            System.out.printf("\uD83D\uDCB0 Price: %s €\n", product.getPrice());
-            System.out.printf("Reference: %s\n" ,product.getReference());
-            System.out.println();
-        }
-    }
+  private static final ProductWarehouse productWarehouse = new ProductWarehouse();
+  private static final Formatter formatter = new Formatter();
+  private static final ActionExplorer actionExplorer = new ActionExplorer(productWarehouse, formatter);
+
+  public static void showCatalog() {
+    String finalProducts = formatter.formatProducts(productWarehouse.getProducts());
+    System.out.println(finalProducts);
+    actionExplorer.exploreNextActions();
+  }
 }
