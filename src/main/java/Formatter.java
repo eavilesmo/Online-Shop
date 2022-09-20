@@ -27,18 +27,18 @@ public class Formatter {
   }
 
   private void addProductImage(StringBuilder stringBuilder, Product product) {
-    stringBuilder.append(product.getImage());
-    stringBuilder.append(StringRepository.LINE_BREAK);
+    stringBuilder.append(product.getImage())
+      .append(StringRepository.LINE_BREAK);
   }
 
   private void addProductShortDescription(StringBuilder stringBuilder, Product product) {
-    stringBuilder.append(product.getShortDescription());
-    stringBuilder.append(StringRepository.LINE_BREAK);
+    stringBuilder.append(product.getShortDescription())
+      .append(StringRepository.LINE_BREAK);
   }
 
   private void addProductHighlightedAttribute(StringBuilder stringBuilder, Product product) {
-    stringBuilder.append(product.getHighlightedAttribute());
-    stringBuilder.append(StringRepository.LINE_BREAK);
+    stringBuilder.append(product.getHighlightedAttribute())
+      .append(StringRepository.LINE_BREAK);
   }
 
   private void addProductPrice(StringBuilder stringBuilder, Product product) {
@@ -50,8 +50,8 @@ public class Formatter {
   private void addProductReference(StringBuilder stringBuilder, Product product) {
     String formatForReference = StringRepository.FORMAT_FOR_REFERENCE;
     String reference = String.format(formatForReference, product.getReference());
-    stringBuilder.append(reference);
-    stringBuilder.append(StringRepository.LINE_BREAK);
+    stringBuilder.append(reference)
+      .append(StringRepository.LINE_BREAK);
   }
 
   private void addProductStock(StringBuilder stringBuilder, Product product) {
@@ -61,16 +61,16 @@ public class Formatter {
   }
 
   private void addProductSummary(StringBuilder stringBuilder, Product product) {
-    stringBuilder.append(StringRepository.SUMMARY_TITLE);
-    stringBuilder.append(product.getShortDescription());
-    stringBuilder.append(StringRepository.LINE_BREAK);
-    stringBuilder.append(product.getHighlightedAttribute());
-    stringBuilder.append(StringRepository.DOUBLE_LINE_BREAK);
+    stringBuilder.append(StringRepository.SUMMARY_TITLE)
+      .append(product.getShortDescription())
+      .append(StringRepository.LINE_BREAK)
+      .append(product.getHighlightedAttribute())
+      .append(StringRepository.DOUBLE_LINE_BREAK);
   }
 
   private void addProductGeneralDescription(StringBuilder stringBuilder, Product product) {
-    stringBuilder.append(StringRepository.DESCRIPTION_TITLE);
-    stringBuilder.append(product.getLongDescription());
-    stringBuilder.append(StringRepository.DOUBLE_LINE_BREAK);
+    stringBuilder.append(StringRepository.DESCRIPTION_TITLE)
+      .append(product.getLongDescription())
+      .append(StringRepository.DOUBLE_LINE_BREAK);
   }
 }
