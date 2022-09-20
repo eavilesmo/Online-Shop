@@ -41,15 +41,6 @@ public class ProductWarehouse {
     return productsToBeAdded;
   }
 
-  public boolean doesProductExist(String reference) {
-    for (Product product : listOfProducts) {
-      if (product.getReference().equals(reference)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   public Product findProductByReference(String reference) {
     for (Product product : listOfProducts) {
       if (product.getReference().equals(reference)) {
