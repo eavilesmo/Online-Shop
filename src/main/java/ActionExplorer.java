@@ -23,9 +23,9 @@ public class ActionExplorer {
     printNextActions();
 
     String userInput2 = userInputScanner.nextLine();
-    if (userInput2.equals("2")) {
+    if (userInput2.equals(StringRepository.SECOND_OPTION)) {
       browseProductsByPrice();
-    } else if (userInput2.equals("3")) {
+    } else if (userInput2.equals(StringRepository.THIRD_OPTION)) {
       browseProductsByReference(productWarehouse, formatter);
     }
   }
