@@ -3,57 +3,74 @@ import java.util.ArrayList;
 public class Formatter {
 
   public String formatProducts(ArrayList<Product> listOfProducts) {
-    StringBuilder finalProducts = new StringBuilder();
+    StringBuilder formattedStrings = new StringBuilder();
     for (Product product : listOfProducts) {
-      finalProducts.append(product.getImage());
-      finalProducts.append("\n");
-
-      finalProducts.append(product.getShortDescription());
-      finalProducts.append("\n");
-
-      finalProducts.append(product.getHighlightedAttribute());
-      finalProducts.append("\n");
-
-      String formatForPrice = "\uD83D\uDCB0 Price: %s €\n";
-      String price = String.format(formatForPrice, product.getPrice());
-      finalProducts.append(price);
-
-      String formatForReference = "Reference: %s \n";
-      String reference = String.format(formatForReference, product.getReference());
-      finalProducts.append(reference);
-      finalProducts.append("\n");
+      addProductImage(formattedStrings, product);
+      addProductShortDescription(formattedStrings, product);
+      addProductHighlightedAttribute(formattedStrings, product);
+      addProductPrice(formattedStrings, product);
+      addProductReference(formattedStrings, product);
     }
-    return finalProducts.toString();
+    return formattedStrings.toString();
   }
 
   public String formatProductDetails(Product product) {
-    StringBuilder singleProduct = new StringBuilder();
-    singleProduct.append(product.getImage());
-    singleProduct.append("\n");
+    StringBuilder formattedString = new StringBuilder();
+    addProductImage(formattedString, product);
+    addProductPrice(formattedString, product);
+    addProductReference(formattedString, product);
+    addProductStock(formattedString, product);
+    addProductSummary(formattedString, product);
+    addProductGeneralDescription(formattedString, product);
 
-    String formatForPrice = "\uD83D\uDCB0 Price: %s €\n";
+    return formattedString.toString();
+  }
+
+  private void addProductImage(StringBuilder stringBuilder, Product product) {
+    stringBuilder.append(product.getImage())
+      .append(StringRepository.LINE_BREAK);
+  }
+
+  private void addProductShortDescription(StringBuilder stringBuilder, Product product) {
+    stringBuilder.append(product.getShortDescription())
+      .append(StringRepository.LINE_BREAK);
+  }
+
+  private void addProductHighlightedAttribute(StringBuilder stringBuilder, Product product) {
+    stringBuilder.append(product.getHighlightedAttribute())
+      .append(StringRepository.LINE_BREAK);
+  }
+
+  private void addProductPrice(StringBuilder stringBuilder, Product product) {
+    String formatForPrice = StringRepository.FORMAT_FOR_PRICE;
     String price = String.format(formatForPrice, product.getPrice());
-    singleProduct.append(price);
+    stringBuilder.append(price);
+  }
 
-    String formatForReference = "Reference: %s \n";
+  private void addProductReference(StringBuilder stringBuilder, Product product) {
+    String formatForReference = StringRepository.FORMAT_FOR_REFERENCE;
     String reference = String.format(formatForReference, product.getReference());
-    singleProduct.append(reference);
+    stringBuilder.append(reference)
+      .append(StringRepository.LINE_BREAK);
+  }
 
-    String formatForStock = "%s left.\n";
+  private void addProductStock(StringBuilder stringBuilder, Product product) {
+    String formatForStock = StringRepository.FORMAT_FOR_STOCK;
     String stock = String.format(formatForStock, product.getStock());
-    singleProduct.append(stock);
-    singleProduct.append("\n");
+    stringBuilder.append(stock).append(StringRepository.LINE_BREAK);
+  }
 
-    singleProduct.append("SUMMARY:\n");
-    singleProduct.append(product.getShortDescription());
-    singleProduct.append("\n");
-    singleProduct.append(product.getHighlightedAttribute());
-    singleProduct.append("\n\n");
+  private void addProductSummary(StringBuilder stringBuilder, Product product) {
+    stringBuilder.append(StringRepository.SUMMARY_TITLE)
+      .append(product.getShortDescription())
+      .append(StringRepository.LINE_BREAK)
+      .append(product.getHighlightedAttribute())
+      .append(StringRepository.DOUBLE_LINE_BREAK);
+  }
 
-    singleProduct.append("DESCRIPTION:\n");
-    singleProduct.append(product.getLongDescription());
-    singleProduct.append("\n\n");
-
-    return singleProduct.toString();
+  private void addProductGeneralDescription(StringBuilder stringBuilder, Product product) {
+    stringBuilder.append(StringRepository.DESCRIPTION_TITLE)
+      .append(product.getLongDescription())
+      .append(StringRepository.DOUBLE_LINE_BREAK);
   }
 }
