@@ -60,12 +60,12 @@ public class ActionExplorer {
   }
 
   private void askIfProductShouldBeAddedToCart(String reference) {
-    System.out.println("Would you like to add this product to the cart?");
+    System.out.println(StringRepository.ADD_PRODUCT_TO_CART);
     Scanner scanner = new Scanner(System.in);
     String shopperResponse = scanner.nextLine();
-    if (shopperResponse.equals("YES")) {
+    if (shopperResponse.equals(StringRepository.RESPONSE_YES)) {
       cart.addProductToCart(reference);
-      System.out.println("Product was added to cart.");
+      System.out.println(StringRepository.PRODUCT_ADDED_SUCCESSFULLY);
     }
     askShopperWhatToDoNext();
   }
