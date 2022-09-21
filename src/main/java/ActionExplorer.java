@@ -4,11 +4,11 @@ import java.util.Scanner;
 public class ActionExplorer {
 
   private final ProductWarehouse productWarehouse;
-  private final Formatter formatter;
+  private final Formatter formatter = new Formatter();
+  private final Cart cart = new Cart();
 
-  public ActionExplorer(ProductWarehouse productWarehouse, Formatter formatter) {
+  public ActionExplorer(ProductWarehouse productWarehouse) {
     this.productWarehouse = productWarehouse;
-    this.formatter = formatter;
   }
 
   public void browseProductsByPrice() {
@@ -64,7 +64,7 @@ public class ActionExplorer {
     Scanner scanner = new Scanner(System.in);
     String shopperResponse = scanner.nextLine();
     if (shopperResponse.equals("YES")) {
-      addProductToCart(reference);
+      cart.addProductToCart(reference);
       System.out.println("Product was added to cart.");
     }
     askShopperWhatToDoNext();
