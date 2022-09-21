@@ -6,14 +6,28 @@ public class ActionExplorer {
   private final ProductWarehouse productWarehouse;
   private final Formatter formatter;
 
-  public ActionExplorer(ProductWarehouse productWarehouse, Formatter formatter) {
-    this.productWarehouse = productWarehouse;
-    this.formatter = formatter;
-  }
+  public void browseProductsByPrice() {
+    System.out.println(StringRepository.BROWSE_PRODUCTS_BY_PRICE);
+    Scanner userInputScanner = new Scanner(System.in);
+    String userInput = userInputScanner.nextLine();
+    double convertedInput = Double.parseDouble(userInput);
 
-  public void exploreNextActions() {
-    browseProductsByReference(productWarehouse, formatter);
-    askShopperNextAction();
+    ArrayList<Product> listOfProductsFiltered = (ArrayList<Product>) productWarehouse.filterProductsByPrice(convertedInput);
+    if (listOfProductsFiltered.equals(new ArrayList<>())) {
+      System.out.println(StringRepository.NO_PRODUCTS_MATCHING_CRITERIA);
+    } else {
+      String productsToBeDisplayed = formatter.formatProducts(listOfProductsFiltered);
+      System.out.println(productsToBeDisplayed);
+    }
+
+    printNextActions();
+
+    String userInput2 = userInputScanner.nextLine();
+    if (userInput2.equals("2")) {
+      browseProductsByPrice();
+    } else if (userInput2.equals("3")) {
+      browseProductsByReference(productWarehouse, formatter);
+    }
   }
 
   private void browseProductsByReference(ProductWarehouse productWarehouse, Formatter formatter) {
@@ -33,28 +47,16 @@ public class ActionExplorer {
         System.out.println(StringRepository.INCORRECT_REFERENCE);
       }
     }
+  }
 
-    System.out.println("Browse products with prices lower than:");
-    Scanner userInputScanner = new Scanner(System.in);
-    String userInput = userInputScanner.nextLine();
-    double convertedInput = Double.parseDouble(userInput);
-    ArrayList<Product> listOfProductsFiltered = (ArrayList<Product>) productWarehouse.filterProductsByPrice(convertedInput);
-    if (listOfProductsFiltered.equals(new ArrayList<>())) {
-      System.out.println("Sorry, there are no products matching the criteria.");
-    } else {
-      String finalProductsFiltered = formatter.formatProducts(listOfProductsFiltered);
-      System.out.println(finalProductsFiltered);
-      System.out.println("What would you like to do next?");
-      System.out.println("2. Keep browsing the catalog");
-      System.out.println("3. See a product's details.");
+  public ActionExplorer(ProductWarehouse productWarehouse, Formatter formatter) {
+    this.productWarehouse = productWarehouse;
+    this.formatter = formatter;
+  }
 
-      String userInput2 = userInputScanner.nextLine();
-      if (userInput2.equals("2")) {
-        exploreProducts();
-      } else if (userInput2.equals("3")) {
-        showSingleProduct();
-      }
-    }
+  public void exploreNextActions() {
+    browseProductsByReference(productWarehouse, formatter);
+    askShopperNextAction();
   }
 
   private void askShopperNextAction() {
@@ -68,8 +70,8 @@ public class ActionExplorer {
 
   private void printNextActions() {
     System.out.println(StringRepository.NEXT_ACTION_QUESTION);
-    System.out.println(StringRepository.ADD_PRODUCT_TO_CART);
     System.out.println(StringRepository.KEEP_BROWSING_PRODUCTS);
+    System.out.println(StringRepository.SEE_PRODUCT_DETAILS);
   }
 
   private boolean shopperWantsToKeepBrowsingTheCatalog(String shopperAction) {
