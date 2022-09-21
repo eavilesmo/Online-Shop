@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class Cart {
+public class Cart {
+
+  public void addProductToCart(String reference) {
+    
+  }
 }
