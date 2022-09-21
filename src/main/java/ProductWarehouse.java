@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductWarehouse {
 
@@ -48,5 +50,13 @@ public class ProductWarehouse {
       }
     }
     throw new RuntimeException(StringRepository.PRODUCT_DOES_NOT_EXIST);
+  }
+
+  public List<Product> filterProductsByPrice(double price) {
+    ArrayList<Product> newListOfProducts = (ArrayList<Product>) listOfProducts
+      .stream()
+      .filter(x -> x.getPrice() < (price))
+      .collect(Collectors.toList());
+    return newListOfProducts;
   }
 }

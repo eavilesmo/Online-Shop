@@ -5,8 +5,6 @@ public class OnlineShop {
   private static final ActionExplorer actionExplorer = new ActionExplorer(productWarehouse, formatter);
 
   public static void showCatalog() {
-    String finalProducts = formatter.formatProducts(productWarehouse.getProducts());
-    System.out.println(finalProducts);
-    actionExplorer.exploreNextActions();
+    actionExplorer.browseProductsByPrice();
   }
 }

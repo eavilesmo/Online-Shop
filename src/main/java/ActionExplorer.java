@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ActionExplorer {
@@ -5,14 +6,28 @@ public class ActionExplorer {
   private final ProductWarehouse productWarehouse;
   private final Formatter formatter;
 
-  public ActionExplorer(ProductWarehouse productWarehouse, Formatter formatter) {
-    this.productWarehouse = productWarehouse;
-    this.formatter = formatter;
-  }
+  public void browseProductsByPrice() {
+    System.out.println(StringRepository.BROWSE_PRODUCTS_BY_PRICE);
+    Scanner userInputScanner = new Scanner(System.in);
+    String userInput = userInputScanner.nextLine();
+    double convertedInput = Double.parseDouble(userInput);
 
-  public void exploreNextActions() {
-    browseProductsByReference(productWarehouse, formatter);
-    askShopperNextAction();
+    ArrayList<Product> listOfProductsFiltered = (ArrayList<Product>) productWarehouse.filterProductsByPrice(convertedInput);
+    if (listOfProductsFiltered.equals(new ArrayList<>())) {
+      System.out.println(StringRepository.NO_PRODUCTS_MATCHING_CRITERIA);
+    } else {
+      String productsToBeDisplayed = formatter.formatProducts(listOfProductsFiltered);
+      System.out.println(productsToBeDisplayed);
+    }
+
+    printNextActions();
+
+    String userInput2 = userInputScanner.nextLine();
+    if (userInput2.equals(StringRepository.SECOND_OPTION)) {
+      browseProductsByPrice();
+    } else if (userInput2.equals(StringRepository.THIRD_OPTION)) {
+      browseProductsByReference(productWarehouse, formatter);
+    }
   }
 
   private void browseProductsByReference(ProductWarehouse productWarehouse, Formatter formatter) {
@@ -34,6 +49,16 @@ public class ActionExplorer {
     }
   }
 
+  public ActionExplorer(ProductWarehouse productWarehouse, Formatter formatter) {
+    this.productWarehouse = productWarehouse;
+    this.formatter = formatter;
+  }
+
+  public void exploreNextActions() {
+    browseProductsByReference(productWarehouse, formatter);
+    askShopperNextAction();
+  }
+
   private void askShopperNextAction() {
     printNextActions();
     Scanner scanner = new Scanner(System.in);
@@ -45,8 +70,8 @@ public class ActionExplorer {
 
   private void printNextActions() {
     System.out.println(StringRepository.NEXT_ACTION_QUESTION);
-    System.out.println(StringRepository.ADD_PRODUCT_TO_CART);
     System.out.println(StringRepository.KEEP_BROWSING_PRODUCTS);
+    System.out.println(StringRepository.SEE_PRODUCT_DETAILS);
   }
 
   private boolean shopperWantsToKeepBrowsingTheCatalog(String shopperAction) {
