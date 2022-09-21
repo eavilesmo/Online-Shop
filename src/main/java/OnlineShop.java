@@ -5,5 +5,6 @@ public class OnlineShop {
 
   public static void showCatalog() {
     actionExplorer.browseProductsByPrice();
+    
   }
 }

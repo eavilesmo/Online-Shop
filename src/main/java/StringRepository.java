@@ -22,4 +22,5 @@ public class StringRepository {
   public static final String DOUBLE_LINE_BREAK = "\n\n";
 
   public static final String PRODUCT_DOES_NOT_EXIST = "The product does not exist in the database";
+  
 }
