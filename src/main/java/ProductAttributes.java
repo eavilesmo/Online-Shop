@@ -26,4 +26,5 @@ public class ProductAttributes {
   public static final double CANDLE_PRICE = 4.99;
   public static final String CANDLE_REFERENCE = "C9Y";
   public static final int CANDLE_STOCK = 145;
+  
 }
