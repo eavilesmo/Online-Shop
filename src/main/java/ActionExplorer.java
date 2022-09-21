@@ -4,13 +4,18 @@ import java.util.Scanner;
 public class ActionExplorer {
 
   private final ProductWarehouse productWarehouse;
-  private final Formatter formatter;
+  private final Formatter formatter = new Formatter();
+  private final Cart cart = new Cart();
+
+  public ActionExplorer(ProductWarehouse productWarehouse) {
+    this.productWarehouse = productWarehouse;
+  }
 
   public void browseProductsByPrice() {
     System.out.println(StringRepository.BROWSE_PRODUCTS_BY_PRICE);
-    Scanner userInputScanner = new Scanner(System.in);
-    String userInput = userInputScanner.nextLine();
-    double convertedInput = Double.parseDouble(userInput);
+    Scanner scanner = new Scanner(System.in);
+    String shopperInput = scanner.nextLine();
+    double convertedInput = Double.parseDouble(shopperInput);
 
     ArrayList<Product> listOfProductsFiltered = (ArrayList<Product>) productWarehouse.filterProductsByPrice(convertedInput);
     if (listOfProductsFiltered.equals(new ArrayList<>())) {
@@ -20,12 +25,16 @@ public class ActionExplorer {
       System.out.println(productsToBeDisplayed);
     }
 
-    printNextActions();
+    askShopperWhatToDoNext();
+  }
 
-    String userInput2 = userInputScanner.nextLine();
-    if (userInput2.equals(StringRepository.SECOND_OPTION)) {
+  private void askShopperWhatToDoNext() {
+    printNextActions();
+    Scanner scanner = new Scanner(System.in);
+    String shopperInput = scanner.nextLine();
+    if (shopperInput.equals(StringRepository.SECOND_OPTION)) {
       browseProductsByPrice();
-    } else if (userInput2.equals(StringRepository.THIRD_OPTION)) {
+    } else if (shopperInput.equals(StringRepository.THIRD_OPTION)) {
       browseProductsByReference(productWarehouse, formatter);
     }
   }
@@ -47,34 +56,23 @@ public class ActionExplorer {
         System.out.println(StringRepository.INCORRECT_REFERENCE);
       }
     }
+    askIfProductShouldBeAddedToCart(reference);
   }
 
-  public ActionExplorer(ProductWarehouse productWarehouse, Formatter formatter) {
-    this.productWarehouse = productWarehouse;
-    this.formatter = formatter;
-  }
-
-  public void exploreNextActions() {
-    browseProductsByReference(productWarehouse, formatter);
-    askShopperNextAction();
-  }
-
-  private void askShopperNextAction() {
-    printNextActions();
+  private void askIfProductShouldBeAddedToCart(String reference) {
+    System.out.println(StringRepository.ADD_PRODUCT_TO_CART);
     Scanner scanner = new Scanner(System.in);
-    String shopperAction = scanner.nextLine();
-    if (shopperWantsToKeepBrowsingTheCatalog(shopperAction)) {
-      OnlineShop.showCatalog();
+    String shopperResponse = scanner.nextLine();
+    if (shopperResponse.equals(StringRepository.RESPONSE_YES)) {
+      cart.addProductToCart(reference);
+      System.out.println(StringRepository.PRODUCT_ADDED_SUCCESSFULLY);
     }
+    askShopperWhatToDoNext();
   }
 
   private void printNextActions() {
     System.out.println(StringRepository.NEXT_ACTION_QUESTION);
     System.out.println(StringRepository.KEEP_BROWSING_PRODUCTS);
     System.out.println(StringRepository.SEE_PRODUCT_DETAILS);
-  }
-
-  private boolean shopperWantsToKeepBrowsingTheCatalog(String shopperAction) {
-    return shopperAction.equals(StringRepository.SECOND_OPTION);
   }
 }
