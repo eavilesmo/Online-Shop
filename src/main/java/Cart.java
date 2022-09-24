@@ -33,4 +33,20 @@ public class Cart {
 
     return totalPrice;
   }
+
+  public double showTotalPrice() {
+    return totalPrice;
+  }
+
+  public int getTvCount() {
+    return tvCount;
+  }
+
+  public int getPianoCount() {
+    return pianoCount;
+  }
+
+  public int getCandleCount() {
+    return candleCount;
+  }
 }
