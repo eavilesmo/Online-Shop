@@ -14,7 +14,7 @@ public class StringRepository {
   public static final String BROWSE_PRODUCTS_BY_PRICE = "Browse products with prices lower than:";
   public static final String NO_PRODUCTS_MATCHING_CRITERIA = "Sorry, there are no products matching the criteria.";
   public static final String RESPONSE_YES = "YES";
-  public static final String PRODUCT_ADDED_SUCCESSFULLY = "Product was added to cart.";
+  public static final String PRODUCT_ADDED_SUCCESSFULLY = "Product was added to cart.\n";
 
   public static final String FORMAT_FOR_PRICE = "\uD83D\uDCB0 Price: %s €\n";
   public static final String FORMAT_FOR_REFERENCE = "Reference: %s \n";
