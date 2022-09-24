@@ -42,9 +42,12 @@ public class ActionExplorer {
   }
 
   private void displayShoppingCart() {
+    String shoppingCart = formatter.formatShoppingCart(cart);
+    System.out.println(shoppingCart);
+
+    printNextActionsAfterSeeingShoppingCart();
     Scanner scanner = new Scanner(System.in);
     String shopperInput = scanner.nextLine();
-    printNextActionsAfterSeeingShoppingCart();
     if (shopperInput.equals(StringRepository.SECOND_OPTION)) {
       browseProductsByPrice();
     }
@@ -78,10 +81,29 @@ public class ActionExplorer {
       cart.addProductToCart(reference);
       System.out.println(StringRepository.PRODUCT_ADDED_SUCCESSFULLY);
     }
-    askShopperWhatToDoNext();
+    askShopperWhatToDoNextAfterAddingProductToCart();
+  }
+
+  private void askShopperWhatToDoNextAfterAddingProductToCart() {
+    printNextActionsAfterAddingProductToCart();
+    Scanner scanner = new Scanner(System.in);
+    String shopperInput = scanner.nextLine();
+    if (shopperInput.equals(StringRepository.SECOND_OPTION)) {
+      browseProductsByPrice();
+    } else if (shopperInput.equals(StringRepository.THIRD_OPTION)) {
+      browseProductsByReference(productWarehouse, formatter);
+    } else if (shopperInput.equals(StringRepository.FOURTH_OPTION)) {
+      displayShoppingCart();
+    }
   }
 
   private void printNextActions() {
+    System.out.println(StringRepository.NEXT_ACTION_QUESTION);
+    System.out.println(StringRepository.KEEP_BROWSING_PRODUCTS);
+    System.out.println(StringRepository.SEE_PRODUCT_DETAILS);
+  }
+
+  private void printNextActionsAfterAddingProductToCart() {
     System.out.println(StringRepository.NEXT_ACTION_QUESTION);
     System.out.println(StringRepository.KEEP_BROWSING_PRODUCTS);
     System.out.println(StringRepository.SEE_PRODUCT_DETAILS);
