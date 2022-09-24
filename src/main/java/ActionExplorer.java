@@ -36,6 +36,8 @@ public class ActionExplorer {
       browseProductsByPrice();
     } else if (shopperInput.equals(StringRepository.THIRD_OPTION)) {
       browseProductsByReference(productWarehouse, formatter);
+    } else if (shopperInput.equals(StringRepository.FOURTH_OPTION)) {
+      
     }
   }
 
@@ -74,5 +76,6 @@ public class ActionExplorer {
     System.out.println(StringRepository.NEXT_ACTION_QUESTION);
     System.out.println(StringRepository.KEEP_BROWSING_PRODUCTS);
     System.out.println(StringRepository.SEE_PRODUCT_DETAILS);
+    System.out.println(StringRepository.GO_TO_CHECKOUT);
   }
 }

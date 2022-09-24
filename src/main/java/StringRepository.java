@@ -6,8 +6,10 @@ public class StringRepository {
   public static final String ADD_PRODUCT_TO_CART = "Would you like to add this product to the cart?";
   public static final String KEEP_BROWSING_PRODUCTS = "2. Keep browsing the catalog";
   public static final String SEE_PRODUCT_DETAILS = "3. See a product's details";
+  public static final String GO_TO_CHECKOUT = "4. Go to checkout";
   public static final String SECOND_OPTION = "2";
   public static final String THIRD_OPTION = "3";
+  public static final String FOURTH_OPTION = "4";
   public static final String BROWSE_PRODUCTS_BY_PRICE = "Browse products with prices lower than:";
   public static final String NO_PRODUCTS_MATCHING_CRITERIA = "Sorry, there are no products matching the criteria.";
   public static final String RESPONSE_YES = "YES";
