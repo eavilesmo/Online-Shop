@@ -42,7 +42,12 @@ public class ActionExplorer {
   }
 
   private void displayShoppingCart() {
-
+    Scanner scanner = new Scanner(System.in);
+    String shopperInput = scanner.nextLine();
+    printNextActionsAfterSeeingShoppingCart();
+    if (shopperInput.equals(StringRepository.SECOND_OPTION)) {
+      browseProductsByPrice();
+    }
   }
 
   private void browseProductsByReference(ProductWarehouse productWarehouse, Formatter formatter) {
