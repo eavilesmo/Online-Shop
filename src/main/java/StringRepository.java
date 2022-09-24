@@ -7,6 +7,7 @@ public class StringRepository {
   public static final String KEEP_BROWSING_PRODUCTS = "2. Keep browsing the catalog";
   public static final String SEE_PRODUCT_DETAILS = "3. See a product's details";
   public static final String GO_TO_CHECKOUT = "4. Go to checkout";
+  public static final String CONFIRM_PURCHASE = "5. Confirm purchase and pay";
   public static final String SECOND_OPTION = "2";
   public static final String THIRD_OPTION = "3";
   public static final String FOURTH_OPTION = "4";
