@@ -4,7 +4,7 @@ public class Formatter {
 
   private final ProductWarehouse productWarehouse = new ProductWarehouse();
 
-  public String formatProducts(ArrayList<Product> listOfProducts) {
+  public String formatListOfProducts(ArrayList<Product> listOfProducts) {
     StringBuilder formattedStrings = new StringBuilder();
     for (Product product : listOfProducts) {
       addProductImage(formattedStrings, product);
@@ -33,18 +33,18 @@ public class Formatter {
     addShoppingCartHeader(formattedString);
     if (cart.getTvCount() > 0) {
       Product product = productWarehouse.getProducts().get(0);
-      addProductDetails(formattedString, product, cart);
+      addProductDetailsShoppingCart(formattedString, product, cart);
     }
     if (cart.getPianoCount() > 0) {
       Product product = productWarehouse.getProducts().get(1);
-      addProductDetails(formattedString, product, cart);
+      addProductDetailsShoppingCart(formattedString, product, cart);
     }
     if (cart.getCandleCount() > 0) {
       Product product = productWarehouse.getProducts().get(2);
-      addProductDetails(formattedString, product, cart);
+      addProductDetailsShoppingCart(formattedString, product, cart);
     }
-    formattedString.append("---\n");
-    formattedString.append("TOTAL: \n");
+    formattedString.append(StringRepository.SEPARATOR_THREE_DASHES);
+    formattedString.append(StringRepository.TOTAL);
     formattedString.append(cart.showTotalPrice());
     addShoppingCartFooter(formattedString);
 
@@ -53,28 +53,22 @@ public class Formatter {
 
   private void addShoppingCartFooter(StringBuilder stringBuilder) {
     stringBuilder.append(StringRepository.DOUBLE_LINE_BREAK)
-      .append("*************************")
+      .append(StringRepository.SEPARATOR_ASTERISKS)
       .append(StringRepository.LINE_BREAK);
   }
 
-  private void addProductDetails(StringBuilder stringBuilder, Product product, Cart cart) {
+  private void addProductDetailsShoppingCart(StringBuilder stringBuilder, Product product, Cart cart) {
     addProductImage(stringBuilder, product);
     addProductShortDescription(stringBuilder, product);
-    stringBuilder.append("--\n");
+    stringBuilder.append(StringRepository.SEPARATOR_TWO_DASHES);
     addProductPrice(stringBuilder, product);
     addProductReferenceWithoutBreakLine(stringBuilder, product);
     addProductUnits(stringBuilder, product, cart);
     addSubtotal(stringBuilder, product, cart);
   }
 
-  private void addProductReferenceWithoutBreakLine(StringBuilder stringBuilder, Product product) {
-    String formatForReference = StringRepository.FORMAT_FOR_REFERENCE;
-    String reference = String.format(formatForReference, product.getReference());
-    stringBuilder.append(reference);
-  }
-
   private void addSubtotal(StringBuilder stringBuilder, Product product, Cart cart) {
-    stringBuilder.append("Subtotal: ");
+    stringBuilder.append(StringRepository.SUBTOTAL);
     if (product.getReference().equals(ProductAttributes.TV_REFERENCE)) {
       stringBuilder.append(ProductAttributes.TV_PRICE);
     } else if (product.getReference().equals(ProductAttributes.PIANO_REFERENCE)) {
@@ -82,7 +76,7 @@ public class Formatter {
     } else if (product.getReference().equals(ProductAttributes.CANDLE_REFERENCE)) {
       stringBuilder.append(ProductAttributes.CANDLE_PRICE);
     }
-    stringBuilder.append(" * ");
+    stringBuilder.append(StringRepository.MULTIPLY_SYMBOL);
     if (product.getReference().equals(ProductAttributes.TV_REFERENCE)) {
       stringBuilder.append(cart.getTvCount());
     } else if (product.getReference().equals(ProductAttributes.PIANO_REFERENCE)) {
@@ -94,7 +88,7 @@ public class Formatter {
   }
 
   private void addProductUnits(StringBuilder stringBuilder, Product product, Cart cart) {
-    stringBuilder.append("Units: ");
+    stringBuilder.append(StringRepository.UNITS);
     if (product.getReference().equals(ProductAttributes.TV_REFERENCE)) {
       stringBuilder.append(cart.getTvCount());
     } else if (product.getReference().equals(ProductAttributes.PIANO_REFERENCE)) {
@@ -107,7 +101,7 @@ public class Formatter {
 
   private void addShoppingCartHeader(StringBuilder stringBuilder) {
     stringBuilder.append(StringRepository.LINE_BREAK)
-      .append("**** SHOPPING CART ****")
+      .append(StringRepository.SHOPPING_CART_HEADER)
       .append(StringRepository.DOUBLE_LINE_BREAK);
   }
 
@@ -137,6 +131,12 @@ public class Formatter {
     String reference = String.format(formatForReference, product.getReference());
     stringBuilder.append(reference)
       .append(StringRepository.LINE_BREAK);
+  }
+
+  private void addProductReferenceWithoutBreakLine(StringBuilder stringBuilder, Product product) {
+    String formatForReference = StringRepository.FORMAT_FOR_REFERENCE;
+    String reference = String.format(formatForReference, product.getReference());
+    stringBuilder.append(reference);
   }
 
   private void addProductStock(StringBuilder stringBuilder, Product product) {

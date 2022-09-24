@@ -21,7 +21,7 @@ public class ActionExplorer {
     if (listOfProductsFiltered.equals(new ArrayList<>())) {
       System.out.println(StringRepository.NO_PRODUCTS_MATCHING_CRITERIA);
     } else {
-      String productsToBeDisplayed = formatter.formatProducts(listOfProductsFiltered);
+      String productsToBeDisplayed = formatter.formatListOfProducts(listOfProductsFiltered);
       System.out.println(productsToBeDisplayed);
     }
 

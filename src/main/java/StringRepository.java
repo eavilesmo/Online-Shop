@@ -23,6 +23,14 @@ public class StringRepository {
   public static final String DESCRIPTION_TITLE = "DESCRIPTION:\n";
   public static final String LINE_BREAK = "\n";
   public static final String DOUBLE_LINE_BREAK = "\n\n";
+  public static final String SHOPPING_CART_HEADER = "**** SHOPPING CART ****";
+  public static final String UNITS = "Units: ";
+  public static final String SUBTOTAL = "Subtotal: ";
+  public static final String MULTIPLY_SYMBOL = " * ";
+  public static final String SEPARATOR_TWO_DASHES = "--\n";
+  public static final String SEPARATOR_THREE_DASHES = "---\n";
+  public static final String SEPARATOR_ASTERISKS = "*************************";
+  public static final String TOTAL = "TOTAL: \n";
 
   public static final String PRODUCT_DOES_NOT_EXIST = "The product does not exist in the database";
 }
