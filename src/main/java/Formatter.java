@@ -69,32 +69,32 @@ public class Formatter {
 
   private void addSubtotal(StringBuilder stringBuilder, Product product, Cart cart) {
     stringBuilder.append(StringRepository.SUBTOTAL);
-    if (product.getReference().equals(ProductAttributes.TV_REFERENCE)) {
-      stringBuilder.append(ProductAttributes.TV_PRICE);
-    } else if (product.getReference().equals(ProductAttributes.PIANO_REFERENCE)) {
-      stringBuilder.append(ProductAttributes.PIANO_PRICE);
-    } else if (product.getReference().equals(ProductAttributes.CANDLE_REFERENCE)) {
-      stringBuilder.append(ProductAttributes.CANDLE_PRICE);
-    }
-    stringBuilder.append(StringRepository.MULTIPLY_SYMBOL);
-    if (product.getReference().equals(ProductAttributes.TV_REFERENCE)) {
-      stringBuilder.append(cart.getTvCount());
-    } else if (product.getReference().equals(ProductAttributes.PIANO_REFERENCE)) {
-      stringBuilder.append(cart.getPianoCount());
-    } else if (product.getReference().equals(ProductAttributes.CANDLE_REFERENCE)) {
-      stringBuilder.append(cart.getCandleCount());
+    switch (product.getReference()) {
+      case ProductAttributes.TV_REFERENCE -> {
+        stringBuilder.append(ProductAttributes.TV_PRICE);
+        stringBuilder.append(StringRepository.MULTIPLY_SYMBOL);
+        stringBuilder.append(cart.getTvCount());
+      }
+      case ProductAttributes.PIANO_REFERENCE -> {
+        stringBuilder.append(ProductAttributes.PIANO_PRICE);
+        stringBuilder.append(StringRepository.MULTIPLY_SYMBOL);
+        stringBuilder.append(cart.getPianoCount());
+      }
+      case ProductAttributes.CANDLE_REFERENCE -> {
+        stringBuilder.append(ProductAttributes.CANDLE_PRICE);
+        stringBuilder.append(StringRepository.MULTIPLY_SYMBOL);
+        stringBuilder.append(cart.getCandleCount());
+      }
     }
     stringBuilder.append(StringRepository.LINE_BREAK);
   }
 
   private void addProductUnits(StringBuilder stringBuilder, Product product, Cart cart) {
     stringBuilder.append(StringRepository.UNITS);
-    if (product.getReference().equals(ProductAttributes.TV_REFERENCE)) {
-      stringBuilder.append(cart.getTvCount());
-    } else if (product.getReference().equals(ProductAttributes.PIANO_REFERENCE)) {
-      stringBuilder.append(cart.getPianoCount());
-    } else if (product.getReference().equals(ProductAttributes.CANDLE_REFERENCE)) {
-      stringBuilder.append(cart.getCandleCount());
+    switch (product.getReference()) {
+      case ProductAttributes.TV_REFERENCE -> stringBuilder.append(cart.getTvCount());
+      case ProductAttributes.PIANO_REFERENCE -> stringBuilder.append(cart.getPianoCount());
+      case ProductAttributes.CANDLE_REFERENCE -> stringBuilder.append(cart.getCandleCount());
     }
     stringBuilder.append(StringRepository.LINE_BREAK);
   }
