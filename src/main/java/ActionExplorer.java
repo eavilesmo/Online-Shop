@@ -40,7 +40,7 @@ public class ActionExplorer {
         System.out.println(StringRepository.INCORRECT_REFERENCE);
       }
     }
-    askIfProductShouldBeAddedToCart(reference);
+    askShopperIfProductShouldBeAddedToCart(reference);
   }
 
   private void askShopperWhatToDoNext() {
@@ -55,7 +55,10 @@ public class ActionExplorer {
   private void displayShoppingCart() {
     String shoppingCart = formatter.formatShoppingCart(cart);
     System.out.println(shoppingCart);
+    askShopperNextActionAfterSeeingShoppingCart();
+  }
 
+  private void askShopperNextActionAfterSeeingShoppingCart() {
     nextActionsPrinter.printNextActionsAfterSeeingShoppingCart();
     String shopperInput = scanner.nextLine();
     if (shopperInput.equals(StringRepository.SECOND_OPTION)) {
@@ -63,7 +66,7 @@ public class ActionExplorer {
     }
   }
 
-  private void askIfProductShouldBeAddedToCart(String reference) {
+  private void askShopperIfProductShouldBeAddedToCart(String reference) {
     System.out.println(StringRepository.ADD_PRODUCT_TO_CART);
     String shopperResponse = scanner.nextLine();
     if (shopperResponse.equals(StringRepository.RESPONSE_YES)) {
