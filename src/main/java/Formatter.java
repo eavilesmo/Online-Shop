@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class Formatter {
 
+  private final ProductWarehouse productWarehouse = new ProductWarehouse();
+
   public String formatProducts(ArrayList<Product> listOfProducts) {
     StringBuilder formattedStrings = new StringBuilder();
     for (Product product : listOfProducts) {
@@ -24,6 +26,89 @@ public class Formatter {
     addProductGeneralDescription(formattedString, product);
 
     return formattedString.toString();
+  }
+
+  public String formatShoppingCart(Cart cart) {
+    StringBuilder formattedString = new StringBuilder();
+    addShoppingCartHeader(formattedString);
+    if (cart.getTvCount() > 0) {
+      Product product = productWarehouse.getProducts().get(0);
+      addProductDetails(formattedString, product, cart);
+    }
+    if (cart.getPianoCount() > 0) {
+      Product product = productWarehouse.getProducts().get(1);
+      addProductDetails(formattedString, product, cart);
+    }
+    if (cart.getCandleCount() > 0) {
+      Product product = productWarehouse.getProducts().get(2);
+      addProductDetails(formattedString, product, cart);
+    }
+    formattedString.append("---\n");
+    formattedString.append("TOTAL: \n");
+    formattedString.append(cart.showTotalPrice());
+    addShoppingCartFooter(formattedString);
+
+    return formattedString.toString();
+  }
+
+  private void addShoppingCartFooter(StringBuilder stringBuilder) {
+    stringBuilder.append(StringRepository.DOUBLE_LINE_BREAK)
+      .append("*************************")
+      .append(StringRepository.LINE_BREAK);
+  }
+
+  private void addProductDetails(StringBuilder stringBuilder, Product product, Cart cart) {
+    addProductImage(stringBuilder, product);
+    addProductShortDescription(stringBuilder, product);
+    stringBuilder.append("--\n");
+    addProductPrice(stringBuilder, product);
+    addProductReferenceWithoutBreakLine(stringBuilder, product);
+    addProductUnits(stringBuilder, product, cart);
+    addSubtotal(stringBuilder, product, cart);
+  }
+
+  private void addProductReferenceWithoutBreakLine(StringBuilder stringBuilder, Product product) {
+    String formatForReference = StringRepository.FORMAT_FOR_REFERENCE;
+    String reference = String.format(formatForReference, product.getReference());
+    stringBuilder.append(reference);
+  }
+
+  private void addSubtotal(StringBuilder stringBuilder, Product product, Cart cart) {
+    stringBuilder.append("Subtotal: ");
+    if (product.getReference().equals(ProductAttributes.TV_REFERENCE)) {
+      stringBuilder.append(ProductAttributes.TV_PRICE);
+    } else if (product.getReference().equals(ProductAttributes.PIANO_REFERENCE)) {
+      stringBuilder.append(ProductAttributes.PIANO_PRICE);
+    } else if (product.getReference().equals(ProductAttributes.CANDLE_REFERENCE)) {
+      stringBuilder.append(ProductAttributes.CANDLE_PRICE);
+    }
+    stringBuilder.append(" * ");
+    if (product.getReference().equals(ProductAttributes.TV_REFERENCE)) {
+      stringBuilder.append(cart.getTvCount());
+    } else if (product.getReference().equals(ProductAttributes.PIANO_REFERENCE)) {
+      stringBuilder.append(cart.getPianoCount());
+    } else if (product.getReference().equals(ProductAttributes.CANDLE_REFERENCE)) {
+      stringBuilder.append(cart.getCandleCount());
+    }
+    stringBuilder.append(StringRepository.LINE_BREAK);
+  }
+
+  private void addProductUnits(StringBuilder stringBuilder, Product product, Cart cart) {
+    stringBuilder.append("Units: ");
+    if (product.getReference().equals(ProductAttributes.TV_REFERENCE)) {
+      stringBuilder.append(cart.getTvCount());
+    } else if (product.getReference().equals(ProductAttributes.PIANO_REFERENCE)) {
+      stringBuilder.append(cart.getPianoCount());
+    } else if (product.getReference().equals(ProductAttributes.CANDLE_REFERENCE)) {
+      stringBuilder.append(cart.getCandleCount());
+    }
+    stringBuilder.append(StringRepository.LINE_BREAK);
+  }
+
+  private void addShoppingCartHeader(StringBuilder stringBuilder) {
+    stringBuilder.append(StringRepository.LINE_BREAK)
+      .append("**** SHOPPING CART ****")
+      .append(StringRepository.DOUBLE_LINE_BREAK);
   }
 
   private void addProductImage(StringBuilder stringBuilder, Product product) {
