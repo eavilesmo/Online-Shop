@@ -3,17 +3,14 @@ import java.util.Scanner;
 
 public class ActionExplorer {
 
-  private final ProductWarehouse productWarehouse;
+  private final ProductWarehouse productWarehouse = new ProductWarehouse();
   private final Formatter formatter = new Formatter();
+  private final NextActionsPrinter nextActionsPrinter = new NextActionsPrinter();
   private final Cart cart = new Cart();
-
-  public ActionExplorer(ProductWarehouse productWarehouse) {
-    this.productWarehouse = productWarehouse;
-  }
+  private final Scanner scanner = new Scanner(System.in);
 
   public void browseProductsByPrice() {
     System.out.println(StringRepository.BROWSE_PRODUCTS_BY_PRICE);
-    Scanner scanner = new Scanner(System.in);
     String shopperInput = scanner.nextLine();
     double convertedInput = Double.parseDouble(shopperInput);
 
@@ -21,27 +18,14 @@ public class ActionExplorer {
     if (listOfProductsFiltered.equals(new ArrayList<>())) {
       System.out.println(StringRepository.NO_PRODUCTS_MATCHING_CRITERIA);
     } else {
-      String productsToBeDisplayed = formatter.formatProducts(listOfProductsFiltered);
+      String productsToBeDisplayed = formatter.formatListOfProducts(listOfProductsFiltered);
       System.out.println(productsToBeDisplayed);
     }
-
     askShopperWhatToDoNext();
-  }
-
-  private void askShopperWhatToDoNext() {
-    printNextActions();
-    Scanner scanner = new Scanner(System.in);
-    String shopperInput = scanner.nextLine();
-    if (shopperInput.equals(StringRepository.SECOND_OPTION)) {
-      browseProductsByPrice();
-    } else if (shopperInput.equals(StringRepository.THIRD_OPTION)) {
-      browseProductsByReference(productWarehouse, formatter);
-    }
   }
 
   private void browseProductsByReference(ProductWarehouse productWarehouse, Formatter formatter) {
     System.out.println(StringRepository.EXPLORE_PRODUCTS);
-    Scanner scanner = new Scanner(System.in);
     boolean doesProductExist = false;
     String reference = "";
 
@@ -56,23 +40,49 @@ public class ActionExplorer {
         System.out.println(StringRepository.INCORRECT_REFERENCE);
       }
     }
-    askIfProductShouldBeAddedToCart(reference);
+    askShopperIfProductShouldBeAddedToCart(reference);
   }
 
-  private void askIfProductShouldBeAddedToCart(String reference) {
+  private void askShopperWhatToDoNext() {
+    nextActionsPrinter.printNextActions();
+    String shopperInput = scanner.nextLine();
+    switch (shopperInput) {
+      case StringRepository.SECOND_OPTION -> browseProductsByPrice();
+      case StringRepository.THIRD_OPTION -> browseProductsByReference(productWarehouse, formatter);
+    }
+  }
+
+  private void displayShoppingCart() {
+    String shoppingCart = formatter.formatShoppingCart(cart);
+    System.out.println(shoppingCart);
+    askShopperNextActionAfterSeeingShoppingCart();
+  }
+
+  private void askShopperNextActionAfterSeeingShoppingCart() {
+    nextActionsPrinter.printNextActionsAfterSeeingShoppingCart();
+    String shopperInput = scanner.nextLine();
+    if (shopperInput.equals(StringRepository.SECOND_OPTION)) {
+      browseProductsByPrice();
+    }
+  }
+
+  private void askShopperIfProductShouldBeAddedToCart(String reference) {
     System.out.println(StringRepository.ADD_PRODUCT_TO_CART);
-    Scanner scanner = new Scanner(System.in);
     String shopperResponse = scanner.nextLine();
     if (shopperResponse.equals(StringRepository.RESPONSE_YES)) {
       cart.addProductToCart(reference);
       System.out.println(StringRepository.PRODUCT_ADDED_SUCCESSFULLY);
     }
-    askShopperWhatToDoNext();
+    askShopperWhatToDoNextAfterAddingProductToCart();
   }
 
-  private void printNextActions() {
-    System.out.println(StringRepository.NEXT_ACTION_QUESTION);
-    System.out.println(StringRepository.KEEP_BROWSING_PRODUCTS);
-    System.out.println(StringRepository.SEE_PRODUCT_DETAILS);
+  private void askShopperWhatToDoNextAfterAddingProductToCart() {
+    nextActionsPrinter.printNextActionsAfterAddingProductToCart();
+    String shopperInput = scanner.nextLine();
+    switch (shopperInput) {
+      case StringRepository.SECOND_OPTION -> browseProductsByPrice();
+      case StringRepository.THIRD_OPTION -> browseProductsByReference(productWarehouse, formatter);
+      case StringRepository.FOURTH_OPTION -> displayShoppingCart();
+    }
   }
 }

@@ -2,7 +2,9 @@ import java.util.ArrayList;
 
 public class Formatter {
 
-  public String formatProducts(ArrayList<Product> listOfProducts) {
+  private final ProductWarehouse productWarehouse = new ProductWarehouse();
+
+  public String formatListOfProducts(ArrayList<Product> listOfProducts) {
     StringBuilder formattedStrings = new StringBuilder();
     for (Product product : listOfProducts) {
       addProductImage(formattedStrings, product);
@@ -24,6 +26,83 @@ public class Formatter {
     addProductGeneralDescription(formattedString, product);
 
     return formattedString.toString();
+  }
+
+  public String formatShoppingCart(Cart cart) {
+    StringBuilder formattedString = new StringBuilder();
+    addShoppingCartHeader(formattedString);
+    if (cart.getTvCount() > 0) {
+      Product product = productWarehouse.getProducts().get(0);
+      addProductDetailsShoppingCart(formattedString, product, cart);
+    }
+    if (cart.getPianoCount() > 0) {
+      Product product = productWarehouse.getProducts().get(1);
+      addProductDetailsShoppingCart(formattedString, product, cart);
+    }
+    if (cart.getCandleCount() > 0) {
+      Product product = productWarehouse.getProducts().get(2);
+      addProductDetailsShoppingCart(formattedString, product, cart);
+    }
+    formattedString.append(StringRepository.SEPARATOR_THREE_DASHES);
+    formattedString.append(StringRepository.TOTAL);
+    formattedString.append(cart.showTotalPrice());
+    addShoppingCartFooter(formattedString);
+
+    return formattedString.toString();
+  }
+
+  private void addShoppingCartFooter(StringBuilder stringBuilder) {
+    stringBuilder.append(StringRepository.DOUBLE_LINE_BREAK)
+      .append(StringRepository.SEPARATOR_ASTERISKS)
+      .append(StringRepository.LINE_BREAK);
+  }
+
+  private void addProductDetailsShoppingCart(StringBuilder stringBuilder, Product product, Cart cart) {
+    addProductImage(stringBuilder, product);
+    addProductShortDescription(stringBuilder, product);
+    stringBuilder.append(StringRepository.SEPARATOR_TWO_DASHES);
+    addProductPrice(stringBuilder, product);
+    addProductReferenceWithoutBreakLine(stringBuilder, product);
+    addProductUnits(stringBuilder, product, cart);
+    addSubtotal(stringBuilder, product, cart);
+  }
+
+  private void addSubtotal(StringBuilder stringBuilder, Product product, Cart cart) {
+    stringBuilder.append(StringRepository.SUBTOTAL);
+    switch (product.getReference()) {
+      case ProductAttributes.TV_REFERENCE -> {
+        stringBuilder.append(ProductAttributes.TV_PRICE);
+        stringBuilder.append(StringRepository.MULTIPLY_SYMBOL);
+        stringBuilder.append(cart.getTvCount());
+      }
+      case ProductAttributes.PIANO_REFERENCE -> {
+        stringBuilder.append(ProductAttributes.PIANO_PRICE);
+        stringBuilder.append(StringRepository.MULTIPLY_SYMBOL);
+        stringBuilder.append(cart.getPianoCount());
+      }
+      case ProductAttributes.CANDLE_REFERENCE -> {
+        stringBuilder.append(ProductAttributes.CANDLE_PRICE);
+        stringBuilder.append(StringRepository.MULTIPLY_SYMBOL);
+        stringBuilder.append(cart.getCandleCount());
+      }
+    }
+    stringBuilder.append(StringRepository.LINE_BREAK);
+  }
+
+  private void addProductUnits(StringBuilder stringBuilder, Product product, Cart cart) {
+    stringBuilder.append(StringRepository.UNITS);
+    switch (product.getReference()) {
+      case ProductAttributes.TV_REFERENCE -> stringBuilder.append(cart.getTvCount());
+      case ProductAttributes.PIANO_REFERENCE -> stringBuilder.append(cart.getPianoCount());
+      case ProductAttributes.CANDLE_REFERENCE -> stringBuilder.append(cart.getCandleCount());
+    }
+    stringBuilder.append(StringRepository.LINE_BREAK);
+  }
+
+  private void addShoppingCartHeader(StringBuilder stringBuilder) {
+    stringBuilder.append(StringRepository.LINE_BREAK)
+      .append(StringRepository.SHOPPING_CART_HEADER)
+      .append(StringRepository.DOUBLE_LINE_BREAK);
   }
 
   private void addProductImage(StringBuilder stringBuilder, Product product) {
@@ -52,6 +131,12 @@ public class Formatter {
     String reference = String.format(formatForReference, product.getReference());
     stringBuilder.append(reference)
       .append(StringRepository.LINE_BREAK);
+  }
+
+  private void addProductReferenceWithoutBreakLine(StringBuilder stringBuilder, Product product) {
+    String formatForReference = StringRepository.FORMAT_FOR_REFERENCE;
+    String reference = String.format(formatForReference, product.getReference());
+    stringBuilder.append(reference);
   }
 
   private void addProductStock(StringBuilder stringBuilder, Product product) {
